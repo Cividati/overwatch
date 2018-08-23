@@ -1,0 +1,37 @@
+#fonte: https://medium.freecodecamp.org/how-to-scrape-websites-with-python-and-beautifulsoup-5946935d93fe
+#import libraries
+#agradecimentos: Polez
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+def get_nicks (team_name):
+    {
+        print(team_name)
+        
+    }
+
+# url do site
+quote_page = 'https://playoverwatch.com/pt-br/career/pc/Amor-1892'
+
+#lista de todos os times
+battlefy_quote_page = 'https://battlefy.com/overwatch-open-division-south-america/2018-overwatch-open-division-season-3-south-america/5b5e9929a9d81f03de875a00/participants'
+#pegando o html
+
+page = urlopen(quote_page)
+
+#passando para um fomrato leginvel
+soup = BeautifulSoup(page, 'html.parser')
+
+#pegando a <div> do nome e pegando o seu valor
+name_box = soup.find('div', attrs={'class': 'competitive-rank'})
+
+#pegando o ranking do jogador
+rank = name_box.text.strip()
+
+#pegando a <div> do nome e pegando o seu valor
+name_box = soup.find('h1', attrs={'class': 'header-masthead'})
+
+#pegando o ranking do jogador
+name = name_box.text.strip()
+
+print ("Nick:", name," | Rank: ", rank)
