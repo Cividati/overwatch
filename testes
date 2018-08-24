@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
 from bs4 import BeautifulSoup
 import re
 import pandas as pd
@@ -12,13 +13,24 @@ url = "https://battlefy.com/overwatch-open-division-south-america/2018-overwatch
 # create a new Firefox session
 driver = webdriver.Firefox()
 driver.implicitly_wait(30)
+#abre na pagina da url
 driver.get(url)
 
-#search = driver.find_element_by_name('search-input')
-search = driver.find_elements_by_name('search')
-driver.send
+team_name = 'Galactic'
 
-print (search)
+#pesquisando o time do inatel nos times da open divisino
+search = driver.find_element_by_xpath("(//input[@name='search'])[2]")
+search.send_keys(team_name)
+search.send_keys(Keys.RETURN)
+driver.implicitly_wait(30)
+
+#buscando o nome do time com o time
+team = driver.find_element_by_xpath("//*[(text() ="+team_name+")]")
+#team = driver.find_element_by_xpath("(//class[@name='team-label'])")
+print (team)
+team.click()
+
+
 
 
 #driver.quit()
