@@ -1,4 +1,3 @@
-# python
-python files
+# Overwatch-web-scarpping
 
-This is a program to get data from the internet :)
+This script gets the Name and rank of a Overwatch Player
