@@ -8,68 +8,76 @@
 #   pip install beautifulsoup4
 
 import re
+import json
+import sys
+import urllib.parse
+import colorama
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
+from colorama import init, AnsiToWin32
+from colorama import Fore, Back, Style
+from termcolor import colored, cprint
+
+
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-def get_bnet():
-    bnet = input ("Digite sua b.net, ex: Example#4213: ")
-    bnet = bnet.replace('#', '-', 1)
-    return bnet
 
-def get_rankName(rank):
-    rank = rank
+def extractJson(teamName):
 
-    if rank < 1499:
-        rank_name = 'Bronze'
-    elif rank < 2499:
-        rank_name = "Ouro"
-    elif rank < 2999:
-        rank_name = "Platina"
-    elif rank < 3499:
-        rank_name = "Diamante"
-    elif rank < 3999:
-        rank_name = "Mestre"
-    else: rank_name = "GM"
+    #extract the player nicks in json into a list
+    playerList = []
+    with open ('data.json','r') as f:
+        data = json.load(f)
+    
+    totalPlayers = len(data[teamName])
+    for c in range(totalPlayers):
+        playerList.append(data[teamName][c]["battlenet"])
+        playerList[c] = playerList[c].replace("#","-")
 
-    return rank_name
+    return playerList
 
-def auto():
-
+def getStats(nick):
+    #get the statistics of that player
+    url = 'https://playoverwatch.com/pt-br/career/pc/' + urllib.parse.quote_plus(nick)
     # url do site
     quote_page = url
     #pegando o html
     page = urlopen(quote_page)
-    #passando para um fomrato leginvel
+    #passando para um fomrato legivel
     soup = BeautifulSoup(page, 'html.parser')
     #pegando a <div> do nome e pegando o seu valor
-
-    if soup.find('div', attrs={'class': 'competitive-rank'}) == True:
+    if soup.find('div', attrs={'class': 'competitive-rank'})is not None:
         name_box = soup.find('div', attrs={'class': 'competitive-rank'})
         
         #pegando o ranking do jogador
         rank = int(name_box.text.strip())
-        #pegando o nome do ranking do jogador
-        rank_name = get_rankName(rank)
 
     else: 
-        rank = 0
+        rank = "0000"
 
 
     #pegando a <div> do nome e pegando o seu valor
     name_box = soup.find('h1', attrs={'class': 'header-masthead'})
-    #pegando o nome do jogador
-    name = name_box.text.strip()
+    
+    nick = nick.replace("-","#")
+    print (rank ," - ", nick)
 
-    #print ("Nick: ", name," | Rank: " , rank, " | ", rank_name)
+def main():
+        
+    print()
 
-    print (rank ," - ", name)
 
+    teamName = input()
+    playerList = extractJson(teamName)
 
-nick = get_bnet()
-url = 'https://playoverwatch.com/pt-br/career/pc/'+nick
-auto()
+    print (teamName,len(playerList),"jogadores" )
 
+    print ('rank  -  nickname')
+    for c in range (len(playerList)):
+        getStats(playerList[c])
+
+main()
