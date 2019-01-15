@@ -49,35 +49,54 @@ def getStats(nick):
     page = urlopen(quote_page)
     #passando para um fomrato legivel
     soup = BeautifulSoup(page, 'html.parser')
-    #pegando a <div> do nome e pegando o seu valor
-    if soup.find('div', attrs={'class': 'competitive-rank'})is not None:
-        name_box = soup.find('div', attrs={'class': 'competitive-rank'})
-        
-        #pegando o ranking do jogador
-        rank = int(name_box.text.strip())
-
-    else: 
-        rank = "0000"
-
-
-    #pegando a <div> do nome e pegando o seu valor
-    name_box = soup.find('h1', attrs={'class': 'header-masthead'})
     
+    bestHero=''
+    timeHero=''
+    #verificando se é perfil publico ou privado
+    if soup.find('div', attrs={'class': 'ProgressBar-title'}) is not None:
+        #PERFIL PBULICO
+
+        #pegando o melhor heroi do jogador
+        heroBox = soup.find('div', attrs={'class': 'ProgressBar-title'})
+        bestHero  = heroBox.text.strip()
+
+        #pegando o tempo de jogo do melhor heroi
+        timeBox = soup.find('div', attrs={'class': 'ProgressBar-description'})
+        timeHero = timeBox.text.strip() 
+
+        #verificando se a pessoa joga ranked
+        if soup.find('div', attrs={'class': 'competitive-rank'})is not None:
+
+            #pegando o ranking do jogador
+            name_box = soup.find('div', attrs={'class': 'competitive-rank'})
+            rank = int(name_box.text.strip())
+
+        else: 
+            rank = "0000"
+    else:  
+        #PERFIL PRIVADO
+        bestHero = 'Perfil Privado'
+        timeHero = '00:00:00'
+        rank = "0000"
+        
+
     nick = nick.replace("-","#")
-    print (rank ," - ", nick)
+    print (rank ," - ", nick, ' - ', bestHero, '->', timeHero)
+
 
 def main():
         
     print()
 
 
-    teamName = input()
+    teamName = 'inatel'
     playerList = extractJson(teamName)
 
     print (teamName,len(playerList),"jogadores" )
 
-    print ('rank  -  nickname')
+    print ('Rank  -  Nickname#12312  -  Best Hero -> Time Played')
     for c in range (len(playerList)):
         getStats(playerList[c])
 
 main()
+
