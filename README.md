@@ -1,3 +1,3 @@
 # Overwatch Scripts
 
-This script gets the Name and rank of a Overwatch Player
+This folde contains scripts for overwatch
