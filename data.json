@@ -1,58 +1,33 @@
 {
-    "tritons": [
+    "team1": [
         {
-            "battlenet": "KpisLos#1949"
+            "battlenet": "nick#123"
         },
         {
-            "battlenet": "Rikpow#1241"
+            "battlenet": "nick#123"
         },
         {
-            "battlenet": "Cllash#1542"
-        },
-        {
-            "battlenet": "Cabeça#11191"
-        },
-        {
-            "battlenet": "Asmodeux#11975"
-        },
-        {
-            "battlenet": "Rikpow#1241"
-        },
-        {
-            "battlenet": "BlackBerry#1818"
-        },
-        {
-            "battlenet": "Pancake#11723"
-        },
-        {
-            "battlenet": "Cacarotto#11458"
-        },
-        {
-            "battlenet": "BrunoDelRock#1895"
-        },
-        {
-            "battlenet": "Grandi#11814"
+            "battlenet": "nick#123"
         }
-		
     ],
-    "inatel": [
+    "team2": [
         {
-            "battlenet": "Mamão#11866"
+            "battlenet": "player2#123"
         },
         {
-            "battlenet": "Segfault#1229"
+            "battlenet": "player2#123"
         },
         {
-            "battlenet": "Obstinate#11250"
+            "battlenet": "player2#123"
         },
         {
-            "battlenet": "RuanPS#1670"
+            "battlenet": "player2#123"
         },
         {
-            "battlenet": "MnaoMagina#1674"
+            "battlenet": "player2#123"
         },
         {
-            "battlenet": "BrazucaMan#1484"
+            "battlenet": "player2#123"
         }
     ]
 }
